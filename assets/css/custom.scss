@@ -1,0 +1,506 @@
+$weights: 50, 100, 200, 300, 400, 500, 600, 700, 800, 900, 950;
+$colors: (
+  'neutral': (
+    #fafafa,
+    #f5f5f5,
+    #e5e5e5,
+    #d4d4d4,
+    #a3a3a3,
+    #737373,
+    #525252,
+    #404040,
+    #262626,
+    #171717,
+    #0a0a0a,
+  ),
+  'red': (
+    #fef2f2,
+    #fee2e2,
+    #fecaca,
+    #fca5a5,
+    #f87171,
+    #ef4444,
+    #dc2626,
+    #b91c1c,
+    #991b1b,
+    #7f1d1d,
+    #450a0a,
+  ),
+  'blue': (
+    #eff6ff,
+    #dbeafe,
+    #bfdbfe,
+    #93c5fd,
+    #60a5fa,
+    #3b82f6,
+    #2563eb,
+    #1d4ed8,
+    #1e40af,
+    #1e3a8a,
+    #172554,
+  ),
+);
+
+@each $weight in $weights {
+  .font-weight-#{$weight} {
+    font-weight: #{$weight};
+  }
+}
+
+@each $color, $shades in $colors {
+  @for $i from 1 through length($shades) {
+    $pallet: nth($shades, $i);
+    $weight: nth($weights, $i);
+
+    .text-#{$color}-#{$weight} {
+      color: $pallet;
+    }
+    .hover\:text-#{$color}-#{$weight} {
+      &:hover {
+        color: $pallet;
+      }
+    }
+    .focus\:text-#{$color}-#{$weight} {
+      &:focus {
+        color: $pallet;
+      }
+    }
+    .active\:text-#{$color}-#{$weight} {
+      &:active {
+        color: $pallet;
+      }
+    }
+
+    .bg-#{$color}-#{$weight} {
+      background-color: $pallet;
+    }
+    .hover\:.bg-#{$color}-#{$weight} {
+      &:hover {
+        background-color: $pallet;
+      }
+    }
+    .focus\:.bg-#{$color}-#{$weight} {
+      &:focus {
+        background-color: $pallet;
+      }
+    }
+    .active\:.bg-#{$color}-#{$weight} {
+      &:active {
+        background-color: $pallet;
+      }
+    }
+
+    .border-#{$color}-#{$weight} {
+      background-color: $pallet;
+    }
+    .hover\:.border-#{$color}-#{$weight} {
+      &:hover {
+        background-color: $pallet;
+      }
+    }
+    .focus\:.border-#{$color}-#{$weight} {
+      &:focus {
+        background-color: $pallet;
+      }
+    }
+    .active\:.border-#{$color}-#{$weight} {
+      &:active {
+        background-color: $pallet;
+      }
+    }
+  }
+}
+
+$spaces: (
+  auto: auto,
+  screen: 100vw,
+  min: min-content,
+  max: max-content,
+  fit: fit-content,
+
+  full: 100%,
+  half: 50%,
+  third: 33.333333333333336%,
+  twoth: 66.66666666666666%,
+  oneth: 83.33333333333334%,
+  quarter: 25%,
+  eighth: 12.5%,
+  sixth: 16.666666666666664%,
+  tenth: 20%,
+
+  // "1/2" : 50%, // Use a string representation for the fraction
+  // Example how to use fraction version.
+  // .w-1\/2 {
+  //   width: var(--w-1\/2, map-get($spaces, "1/2"));
+  // }
+  0: 0px,
+  px: 1px,
+  1: 0.25rem,
+  2: 0.5rem,
+  3: 0.75rem,
+  4: 1rem,
+  5: 1.25rem,
+  6: 1.5rem,
+  7: 1.75rem,
+  8: 2rem,
+  9: 2.25rem,
+  10: 2.5rem,
+  11: 2.75rem,
+  12: 3rem,
+  14: 3.5rem,
+  16: 4rem,
+  20: 5rem,
+  24: 6rem,
+  32: 8rem,
+  40: 10rem,
+  48: 12rem,
+  56: 14rem,
+  60: 15rem,
+  64: 16rem,
+  72: 18rem,
+  80: 20rem,
+  96: 24rem,
+  112: 28rem,
+
+  sm: 0.8rem,
+  base: 1rem,
+  xl: 1.25rem,
+  2xl: 1.563rem,
+  3xl: 1.953rem,
+  4xl: 2.441rem,
+  5xl: 3.052rem,
+);
+
+// Generate gap classes
+@each $name, $value in $spaces {
+  .gap-#{$name} {
+    // If the value is numeric or ends with 'px', use it as a fixed size
+    @if (type-of($value) == number or str-slice($value, -2) == 'px') {
+      gap: $value;
+    } @else {
+      // Otherwise, use it as a percentage size
+      gap: calc(
+        #{$value} - #{$value} * 0.002
+      ); // To avoid subpixel rounding issues
+    }
+  }
+}
+
+@each $key, $value in $spaces {
+  .w-#{$key} {
+    width: var(--w-#{$key}, $value);
+  }
+  .h-#{$key} {
+    height: var(--h-#{$key}, $value);
+  }
+
+  .m-#{$key} {
+    margin: var(--m-#{$key}, $value);
+  }
+  .mt-#{$key} {
+    margin-top: var(--m-#{$key}, $value);
+  }
+  .mb-#{$key} {
+    margin-bottom: var(--m-#{$key}, $value);
+  }
+  .ml-#{$key} {
+    margin-left: var(--m-#{$key}, $value);
+  }
+  .mr-#{$key} {
+    margin-right: var(--m-#{$key}, $value);
+  }
+  .mx-#{$key} {
+    margin-left: var(--m-#{$key}, $value);
+    margin-right: var(--m-#{$key}, $value);
+  }
+  .my-#{$key} {
+    margin-top: var(--m-#{$key}, $value);
+    margin-bottom: var(--m-#{$key}, $value);
+  }
+
+  .p-#{$key} {
+    padding: var(--p-#{$key}, $value);
+  }
+  .pt-#{$key} {
+    padding-top: var(--m-#{$key}, $value);
+  }
+  .pb-#{$key} {
+    padding-bottom: var(--m-#{$key}, $value);
+  }
+  .pl-#{$key} {
+    padding-left: var(--m-#{$key}, $value);
+  }
+  .pr-#{$key} {
+    padding-right: var(--m-#{$key}, $value);
+  }
+  .px-#{$key} {
+    padding-left: var(--m-#{$key}, $value);
+    padding-right: var(--m-#{$key}, $value);
+  }
+  .py-#{$key} {
+    padding-top: var(--m-#{$key}, $value);
+    padding-bottom: var(--m-#{$key}, $value);
+  }
+
+  .border-radius-#{$key} {
+    border-radius: var(--border-radius-#{$key}, $value);
+  }
+
+  .text-#{$key} {
+    font-size: var(--border-radius-#{$key}, $value);
+  }
+}
+
+// Top / Right / Bottom / Left
+@each $key, $value in $spaces {
+  .inset-#{$key} {
+    inset: #{$value};
+  }
+}
+
+@each $key, $value in $spaces {
+  .inset-x-#{$key} {
+    left: #{$value};
+    right: #{$value};
+  }
+  .inset-y-#{$key} {
+    top: #{$value};
+    bottom: #{$value};
+  }
+}
+
+@each $key, $value in $spaces {
+  .start-#{$key} {
+    inset-inline-start: #{$value};
+  }
+  .end-#{$key} {
+    inset-inline-end: #{$value};
+  }
+}
+
+@each $key, $value in $spaces {
+  .top-#{$key} {
+    top: #{$value};
+  }
+  .right-#{$key} {
+    right: #{$value};
+  }
+  .bottom-#{$key} {
+    bottom: #{$value};
+  }
+  .left-#{$key} {
+    left: #{$value};
+  }
+}
+
+// Special classes for `inset-auto` and `inset-full`
+.inset-auto {
+  inset: auto;
+}
+
+.inset-1\/2 {
+  inset: 50%;
+}
+
+$displays: (
+  block: block,
+  inline: inline,
+  inline-block: inline-block,
+  flex: flex,
+  inline-flex: inline-flex,
+  grid: grid,
+  inline-grid: inline-grid,
+  table: table,
+  table-caption: table-caption,
+  table-cell: table-cell,
+  table-column: table-column,
+  table-column-group: table-column-group,
+  table-footer-group: table-footer-group,
+  table-header-group: table-header-group,
+  table-row: table-row,
+  table-row-group: table-row-group,
+  contents: contents,
+  flow-root: flow-root,
+  none: none,
+);
+
+@each $key, $value in $displays {
+  .d-#{$key} {
+    display: var(--d-#{$key}, $value);
+  }
+}
+
+$cursors: (
+  auto: auto,
+  default: default,
+  pointer: pointer,
+  wait: wait,
+  text: text,
+  move: move,
+  not-allowed: not-allowed,
+);
+
+@each $key, $value in $cursors {
+  .cursor-#{$key} {
+    cursor: var(--cursor-#{$key}, $value);
+  }
+}
+
+$borders: (
+  solid: solid,
+  dashed: dashed,
+  dotted: dotted,
+  double: double,
+  none: none,
+);
+
+@each $key, $value in $borders {
+  .border-#{$key} {
+    border: var(--border-#{$key}, $value);
+  }
+}
+
+$alignItems: (
+  start: flex-start,
+  end: flex-end,
+  center: center,
+  stretch: stretch,
+  baseline: baseline,
+);
+
+$justifyContent: (
+  start: flex-start,
+  end: flex-end,
+  center: center,
+  between: space-between,
+  around: space-around,
+  evenly: space-evenly,
+);
+
+$positions: (
+  static: static,
+  relative: relative,
+  absolute: absolute,
+  fixed: fixed,
+  sticky: sticky,
+);
+
+@each $key, $value in $alignItems {
+  .items-#{$key} {
+    align-items: var(--items-#{$key}, $value);
+  }
+}
+
+@each $key, $value in $justifyContent {
+  .justify-#{$key} {
+    justify-content: var(--justify-#{$key}, $value);
+  }
+}
+
+@each $key, $value in $positions {
+  .position-#{$key} {
+    position: var(--position-#{$key}, $value);
+  }
+}
+
+$gridTemplates: (
+  rows: (
+    none: none,
+    1: repeat(1, minmax(0, 1fr)),
+    2: repeat(2, minmax(0, 1fr)),
+    3: repeat(3, minmax(0, 1fr)),
+    4: repeat(4, minmax(0, 1fr)),
+    5: repeat(5, minmax(0, 1fr)),
+    6: repeat(6, minmax(0, 1fr)),
+    7: repeat(7, minmax(0, 1fr)),
+    8: repeat(8, minmax(0, 1fr)),
+    9: repeat(9, minmax(0, 1fr)),
+    10: repeat(10, minmax(0, 1fr)),
+    11: repeat(11, minmax(0, 1fr)),
+    12: repeat(12, minmax(0, 1fr)),
+  ),
+  cols: (
+    none: none,
+    1: repeat(1, minmax(0, 1fr)),
+    2: repeat(2, minmax(0, 1fr)),
+    3: repeat(3, minmax(0, 1fr)),
+    4: repeat(4, minmax(0, 1fr)),
+    5: repeat(5, minmax(0, 1fr)),
+    6: repeat(6, minmax(0, 1fr)),
+    7: repeat(7, minmax(0, 1fr)),
+    8: repeat(8, minmax(0, 1fr)),
+    9: repeat(9, minmax(0, 1fr)),
+    10: repeat(10, minmax(0, 1fr)),
+    11: repeat(11, minmax(0, 1fr)),
+    12: repeat(12, minmax(0, 1fr)),
+  ),
+);
+
+@each $name, $valueMap in map-get($gridTemplates, rows) {
+  .grid-rows-#{$name} {
+    grid-template-rows: var(--grid-rows-#{$name}, $valueMap);
+  }
+}
+
+@each $name, $valueMap in map-get($gridTemplates, cols) {
+  .grid-cols-#{$name} {
+    grid-template-columns: var(--grid-cols-#{$name}, $valueMap);
+  }
+}
+
+// overflow
+$overflows: (
+  'auto': auto,
+  'hidden': hidden,
+  'visible': visible,
+  'scroll': scroll,
+  'x-auto': auto scroll,
+  'y-auto': auto scroll,
+  'x-hidden': hidden scroll,
+  'y-hidden': hidden scroll,
+  'x-visible': visible scroll,
+  'y-visible': visible scroll,
+  'x-scroll': auto scroll,
+  'y-scroll': auto scroll,
+);
+
+@each $name, $value in $overflows {
+  .overflow-#{$name} {
+    overflow: #{$value};
+  }
+}
+
+// z-index
+$zIndices: (
+  'auto': auto,
+  '0': 0,
+  '10': 10,
+  '20': 20,
+  '30': 30,
+  '40': 40,
+  '50': 50,
+  '60': 60,
+  '70': 70,
+  '80': 80,
+  '90': 90,
+  '100': 100,
+);
+
+@each $name, $value in $zIndices {
+  .z-#{$name} {
+    z-index: #{$value};
+  }
+}
+
+$text-alignment-values: (
+  'left': left,
+  'center': center,
+  'right': right,
+  'justify': justify,
+);
+
+@each $name, $value in $text-alignment-values {
+  .text-#{$name} {
+    text-align: #{$value};
+  }
+}

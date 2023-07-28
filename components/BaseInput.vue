@@ -1,0 +1,51 @@
+<template>
+  <div style="position: relative">
+    <label :for="inputId">{{ label }}</label>
+    <input
+      :id="inputId"
+      class="h-full w-full"
+      v-bind="$attrs"
+      :value="value"
+      @input="$emit('input', $event.target.value)"
+    >
+
+    <button
+      v-if="isSearch"
+      type="button"
+      class="position-absolute right-1 top-5"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="16"
+        height="16"
+        fill="white"
+        class="bi bi-search"
+        viewBox="0 0 16 16"
+      >
+        <path
+          d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"
+        />
+      </svg>
+    </button>
+  </div>
+</template>
+
+<script>
+export default {
+  props: {
+    label: {
+      type: String,
+      default: ''
+    },
+    value: {
+      type: [String, Number],
+      default: ''
+    },
+    inputId: {
+      type: String,
+      default: 'base-input'
+    },
+    isSearch: Boolean
+  }
+};
+</script>
