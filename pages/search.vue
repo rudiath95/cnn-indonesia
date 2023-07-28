@@ -1,17 +1,20 @@
 <template>
   <div>
-    <div class="bg-neutral-300 h-112 pt-12 d-flex">
+    <div class="h-112 pt-12 d-flex">
       <div v-if="news.length > 0" class="w-twoth h-full mx-auto bg-neutral-50">
         <div
           class="bg-neutral-50 position-absolute top-96 p-5 cursor-pointer font-weight-700 text-neutral-900 px-1 text-3xl hover:text-red-800 py-4"
           :title="news[0].judul"
           @click="goToDetail(news[0].link)"
         >
-          {{ trimStr(news[0].judul, 50) }}
+          {{ trimStr(news[0].judul, 60) }}
         </div>
         <div class="h-full overflow-hidden">
           <img :src="news[0].poster" class="w-full">
         </div>
+      </div>
+      <div v-esle class="mt-20 mx-auto text-4xl">
+        Berita tidak ditemukan.
       </div>
     </div>
 
@@ -27,8 +30,8 @@
 import { trimText } from '@/utils/trimText';
 
 export default {
-  async asyncData ({ $axios, $config }) {
-    const apiUrl = $config.apiUrl + '/nasional';
+  async asyncData ({ $axios, $config, route }) {
+    const apiUrl = $config.apiUrl + '/search/?q=' + route.query.search;
     try {
       const response = await $axios.$get(apiUrl);
       return {

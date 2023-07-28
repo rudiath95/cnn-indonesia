@@ -13,6 +13,7 @@
       v-if="isSearch"
       type="button"
       class="position-absolute right-1 top-5"
+      @click="$emit('search')"
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"

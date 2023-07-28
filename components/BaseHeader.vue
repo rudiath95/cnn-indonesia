@@ -33,6 +33,7 @@
         type="text"
         placeholder="Search..."
         is-search
+        @search="handlerSearch"
       />
     </div>
   </div>
@@ -47,6 +48,23 @@ export default {
       categories: NEWS_CATEGORIES,
       search: ''
     };
+  },
+  mounted () {
+    const search = this.$route.query?.search;
+    if (search) {
+      this.search = search;
+    }
+  },
+  methods: {
+    handlerSearch () {
+      if (!this.search) { return; }
+      this.$router.push({
+        path: '/search',
+        query: {
+          search: this.search
+        }
+      });
+    }
   }
 };
 </script>
